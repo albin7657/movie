@@ -1,0 +1,60 @@
+<!DOCTYPE html>
+
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Movie system</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+
+</head>
+<body class="relative w-full">
+    <h1 class="text-green-500 flex flex-cols items-center justify-center">Movie development</h1>
+    <form id="movieForm" class="bg-blue-200 p-4 rounded shadow mb-4 border-solid">
+        <label class="font-bold text-lg sm:text-2xl md:text-4xl lg:text-6xl">Movie name</label>
+        <input type="text" id="name" class="shadow-xl hover:bg-blue-100">
+
+        <label class="font-bold text-lg sm:text-2xl md:text-4xl lg:text-6xl">Movie id</label>
+        <input type="text" id="movienumber" class="shadow-xl hover:bg-blue-100">
+
+        <label class="font-bold text-lg sm:text-2xl md:text-4xl lg:text-6xl">Creation</label>
+        <input type="text" id="cretion" class="shadow-xl hover:bg-blue-100">
+
+        <label class="font-bold text-lg sm:text-2xl md:text-4xl lg:text-6xl">Director</label>
+        <input type="text" id="director" class="shadow-xl hover:bg-blue-100">
+
+        <label>Genre</label>
+        <input type="text" id="genre">
+
+        <label>Rating</label>
+        <label>1:</label>
+        <input type="radio" name="rating" value="1">
+        <label>2:</label>
+        <input type="radio" name="rating" value="2">
+        <label>3:</label>
+        <input type="radio" name="rating" value="3">
+        <label>4:</label>
+        <input type="radio" name="rating" value="4">
+        <br><br>
+        <button type="submit" class="bg-green-500 text-white px-4 py-2 rounded">Add Movie</button>
+    </form>
+
+    <script>
+    document.getElementById('movieForm').addEventListener('submit', async function(e) {
+        e.preventDefault();
+        const title = document.getElementById('name').value;
+        const director = document.getElementById('director').value;
+        const year = document.getElementById('cretion').value;
+
+        const response = await fetch('/movies_db', {
+            method: 'POST',
+            headers: {
+                'Content-Type': 'application/json'
+            },
+            body: JSON.stringify({ title, director, year })
+        });
+        const result = await response.json();
+        alert(result.message || 'Movie added!');
+    });
+    </script>
+</body>
+</html>
